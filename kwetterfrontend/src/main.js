@@ -1,4 +1,5 @@
 import Vue from 'vue'
+// import App from './views/AccountPage'
 import App from './views/Homescreen'
 import router from './router'
 

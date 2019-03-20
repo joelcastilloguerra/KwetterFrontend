@@ -1,13 +1,9 @@
 <template>
     <div id="postKweet">
 
-        <form action="/postKweet">
+        <textarea maxlength="160" placeholder="What's on your mind?" id="kweetContent"></textarea>
 
-            <textarea maxlength="160" placeholder="What's on your mind?" id="kweetContent"></textarea>
-
-            <input type="submit" value="KWEET" id="kweetButton">
-
-        </form>
+        <img id="kweetButton" src="../../assets/images/kweet-button.svg"/>
 
     </div>
 </template>
@@ -28,7 +24,7 @@
     #postKweet{
 
         width: 100%;
-        height: 26.6vw;
+        height: 18.5vw;
         background-color: #fff;
         filter: drop-shadow(13px 6px 14px #ececec);
         margin-top: 3vw;
@@ -38,7 +34,7 @@
 
         background-color: white;
         width: 83%;
-        height: 16vw;
+        height: 10vw;
         box-shadow: inset 0px 0px 23px #e9e9e9;
 
         padding: 3% 4px 4px 3%;
@@ -47,7 +43,7 @@
         border: 2px solid #fff;
 
         font-family: HelveticaNeue-Thin,sans-serif;
-        font-size: 1.7vw;
+        font-size: 1.2vw;
 
         margin-left: 5%;
         margin-top: 1.5vw;
@@ -64,20 +60,13 @@
 
     #kweetButton{
 
-        height: 4vw;
-        width: 30%;
+        height: 3vw;
         line-height: 2vw;
         float: right;
-        background-color: #6FAED8;
-        margin-right: 6.4%;
-        padding: 3% 4px 4px 3%;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        border: 2px solid #6FAED8;
-        font-family: HelveticaNeueCondensedBold,sans-serif;
+        margin-right: 6.9%;
         color: white;
-        font-size: 1.6vw;
-        margin-top: 1.4vw;
+        margin-top: 0.6vw;
+
     }
 
     ::placeholder{

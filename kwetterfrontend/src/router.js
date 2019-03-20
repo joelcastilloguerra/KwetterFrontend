@@ -1,16 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from './views/Homescreen'
+import AccountPage from './views/AccountPage'
+import Homescreen from './views/Homescreen'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'accountPage',
+    //   component: AccountPage
+    // },
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'homescreen',
+      component: Homescreen
     }
   ]
 })

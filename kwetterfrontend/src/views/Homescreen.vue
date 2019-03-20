@@ -1,13 +1,11 @@
 <template>
     <div>
 
-        <kwetter-logo></kwetter-logo>
-
-        <switch-account></switch-account>
-
         <div id="rows">
 
             <div id="leftRow">
+
+                <account></account>
 
                 <search-box></search-box>
 
@@ -15,18 +13,23 @@
 
             </div>
 
-            <div id="rightRow">
+            <div id="rightBackground">
 
-                <ul>
+                <div id="rightRow">
 
-                    <li id="kweet" v-for="kweet in kweetObjects" :key="kweet.kweetId">
-                        <kweet-component :kweet="kweet"></kweet-component>
-                    </li>
+                    <kwetter-logo></kwetter-logo>
 
-                </ul>
+                    <ul>
 
+                        <li id="kweet" v-for="kweet in kweetObjects" :key="kweet.kweetId">
 
+                            <kweet-component :kweet="kweet"></kweet-component>
 
+                        </li>
+
+                    </ul>
+
+                </div>
             </div>
 
         </div>
@@ -39,10 +42,10 @@
     import KwetterLogo from "../KwetterLogo";
     import SearchBox from "../components/homepage/SearchBox";
     import PostKweet from "../components/homepage/PostKweet";
-    import SwitchAccount from "../components/homepage/SwitchAccount";
+    import Account from "../components/homepage/Account";
     export default {
         name: "Homescreen",
-        components: {SwitchAccount, PostKweet, SearchBox, KwetterLogo, KweetComponent},
+        components: {Account, PostKweet, SearchBox, KwetterLogo, KweetComponent},
         data() {
             return {
 
@@ -98,10 +101,10 @@
 
     #rows{
 
-        width: 93.33%;
+        width: 96.67%;
         height: 100vw;
         margin-left: 3.33%;
-        margin-top: 2vw;
+
     }
 
     #leftRow{
@@ -111,15 +114,27 @@
         float: left;
         position: fixed;
         z-index: 10;
+        margin-top: 8.4vw;
+
 
     }
 
     #rightRow{
 
-        height: 10vw;
-        width: 66%;
+        height: auto;
+        width: 94%;
         margin: 0 0 0 4.66%;
         float: right;
+
+    }
+
+    #rightBackground{
+
+        width: 61vw;
+        float: right;
+        height: auto;
+        padding-right: 3.3%;
+        overflow-y: auto;
 
     }
 
@@ -147,5 +162,7 @@
         background: #6faed8; /* Gecko Browsers */
         color: white;
     }
+
+
 
 </style>

@@ -220,7 +220,22 @@
 
         margin-top: 2vw;
 
-        transition: 1s;
+        transition: 0.2s;
+
+        padding: 1px;
+
+    }
+
+    .heart:hover{
+
+        transform: scale(1.2);
+        cursor: pointer;
+
+    }
+
+    .heart:active{
+
+        transform: scale(0.9);
 
     }
 

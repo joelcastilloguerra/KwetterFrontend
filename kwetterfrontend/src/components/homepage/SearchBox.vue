@@ -55,11 +55,17 @@
 
         outline: none;
 
-        margin-top: 1vw;
-
         float: left;
 
-        margin-left: 5%;
+        top: 50%;
+        transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+
+        position: absolute;
+        left: 1vw;
     }
 
     ::placeholder{
@@ -70,10 +76,18 @@
 
     #searchIcon{
 
-        height: calc(3vw);
+        height: 3vw;
         float: right;
-        margin-top: calc(1vw + 2px);
-        margin-right: 2.05vw;
+
+        top: 50%;
+        transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+
+        position: absolute;
+        right: 1.55vw;
 
     }
 
