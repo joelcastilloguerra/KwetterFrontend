@@ -76,16 +76,6 @@
 <style scoped>
 
     @font-face {
-        font-family: "HelveticaNeueCondensedBold";
-        src: url('../assets/fonts/HelveticaNeueCondensedBold.ttf');
-    }
-
-    @font-face {
-        font-family: "HelveticaNeue-ThinItalic";
-        src: url('../assets/fonts/HelveticaNeue-ThinItalic.otf');
-    }
-
-    @font-face {
         font-family: "HelveticaNeue-Thin";
         src: url('../assets/fonts/HelveticaNeue-Thin.otf');
     }
@@ -107,8 +97,6 @@
 
         font-size: 8vw;
         font-weight: lighter;
-
-
 
     }
 

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import AccountPage from './views/AccountPage'
 import Homescreen from './views/Homescreen'
+import AdminPanel from './views/AdminPanel'
 
 Vue.use(Router)
 
@@ -13,10 +14,15 @@ export default new Router({
     //   name: 'accountPage',
     //   component: AccountPage
     // },
+    // {
+    //   path: '/',
+    //   name: 'homescreen',
+    //   component: Homescreen
+    // }
     {
       path: '/',
-      name: 'homescreen',
-      component: Homescreen
+      name: 'adminPanel',
+      component: AdminPanel
     }
   ]
 })

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 // import App from './views/AccountPage'
-import App from './views/Homescreen'
+// import App from './views/AdminPanel'
+import App from './views/AdminPanel'
 import router from './router'
 
 Vue.config.productionTip = false
