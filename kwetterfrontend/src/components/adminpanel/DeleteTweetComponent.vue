@@ -7,7 +7,7 @@
 
                 <h1>Joel Castillo Guerra <h2>@joelcastilloguerra</h2></h1>
 
-            <p>This is my first kweet. You better appreciate it.This is my first kweet. You better appreciate <it class=""></it></p>
+            <p>{{this.$store.state.test}} <it class=""></it></p>
             <h3>12-12-2012 12:12</h3>
 
         </div>
