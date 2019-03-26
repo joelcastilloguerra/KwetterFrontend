@@ -9,20 +9,20 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'accountPage',
-    //   component: AccountPage
-    // },
-    // {
-    //   path: '/',
-    //   name: 'homescreen',
-    //   component: Homescreen
-    // }
-    {
-      path: '/',
-      name: 'adminPanel',
-      component: AdminPanel
-    }
+{
+  path: '/',
+  name: 'accountPage',
+  component: AccountPage
+},
+// {
+//   path: '/',
+//   name: 'homescreen',
+//   component: Homescreen
+// }
+// {
+//   path: '/',
+//   name: 'adminPanel',
+//   component: AdminPanel
+// }
   ]
 })

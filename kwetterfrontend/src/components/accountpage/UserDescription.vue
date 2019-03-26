@@ -9,7 +9,7 @@
 
         <div id="userDescriptionRightRow">
 
-            <h1> {{fullName}} </h1>
+            <h1> {{ this.$store.getters.USER.username }} </h1>
             <h2> {{username}} </h2>
 
             <p id="bio">{{bio}}</p>
@@ -44,6 +44,11 @@
                 following: 162
 
             }
+        },
+        created() {
+
+            this.$store.dispatch('SET_USER')
+
         }
     }
 </script>
@@ -134,8 +139,8 @@
         font-size: 1.8vw;
         font-family: "HelveticaNeue-Thin", "Roboto Light", "Roboto", "Arial", sans-serif;
         margin-bottom: 0;
-        margin-top: 0vw;
-        letter-spacing: 1px;
+        margin-top: 0;
+        letter-spacing: 0.6px;
 
     }
 
@@ -151,7 +156,7 @@
         margin-top: 2vw;
         max-width: 40vw;
 
-        letter-spacing: 1px;
+        letter-spacing: 0.2px;
 
     }
 
