@@ -6,7 +6,7 @@
 
             <div id="profilepic"></div>
 
-            <h1>{{ kweet.fullName }} <span id="username">{{ kweet.username }}</span></h1>
+            <h1>{{ this.poster.firstname + " " + this.poster.lastname }} <span id="username">@{{ poster.username }}</span></h1>
 
 
 
@@ -20,7 +20,7 @@
 
         <div id="thirdRow">
 
-            <p id="dateTime">{{ kweet.dateTime }}</p>
+            <p id="dateTime">{{ dateTime }}</p>
 
             <div @click="kweetLiked = !kweetLiked">
 
@@ -29,7 +29,7 @@
 
             </div>
 
-            <p id="likesCount">{{ kweet.likesCount }}</p>
+            <p id="likesCount">{{ likes }}</p>
 
         </div>
 
@@ -38,9 +38,8 @@
 </template>
 
 <script>
-
+    import Axios from 'axios'
     export default {
-
         name: "kweetComponent",
         props: {
             kweet: {
@@ -51,9 +50,30 @@
 
             return {
 
-                kweetLiked: this.kweet.kweetLiked
+                kweetLiked: this.kweet.kweetLiked,
+                poster: []
 
             }
+
+        },
+        computed:{
+
+            likes(){
+
+                return this.kweet.likedBy.length;
+
+            },
+            dateTime(){
+
+                return this.kweet.dateTime
+
+            }
+
+        },
+        mounted() {
+
+            let {data} = Axios.get('http://127.0.0.1:8081/user/get/' + this.kweet.poster)
+                .then(value => this.poster = value.data);
 
         }
 

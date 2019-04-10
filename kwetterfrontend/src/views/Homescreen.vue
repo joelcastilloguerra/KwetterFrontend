@@ -1,5 +1,9 @@
 <template>
-    <div>
+    <div id="homescreen">
+
+        <kwetter-logo></kwetter-logo>
+
+        <menu-component></menu-component>
 
         <div id="rows">
 
@@ -17,11 +21,9 @@
 
                 <div id="rightRow">
 
-                    <kwetter-logo></kwetter-logo>
-
                     <ul>
 
-                        <li id="kweet" v-for="kweet in kweetObjects" :key="kweet.kweetId">
+                        <li id="kweet" v-for="kweet in timeline" :key="kweet.id">
 
                             <kweet-component :kweet="kweet"></kweet-component>
 
@@ -43,83 +45,64 @@
     import SearchBox from "../components/homepage/SearchBox";
     import PostKweet from "../components/homepage/PostKweet";
     import Account from "../components/homepage/Account";
+    import MenuComponent from "../menu/menuComponent";
+
     export default {
         name: "Homescreen",
-        components: {Account, PostKweet, SearchBox, KwetterLogo, KweetComponent},
-        data() {
-            return {
+        components: {MenuComponent, Account, PostKweet, SearchBox, KwetterLogo, KweetComponent},
+        computed: {
 
+            timeline() {
 
-                kweetObjects: [
-
-                    {
-                        kweetId: 1,
-                        fullName: "Joel Castillo Guerra",
-                        username: "@joel123",
-                        content: "This is the first kweet send with kwetter",
-                        dateTime: "20-04-2019 10:23",
-                        kweetLiked: false,
-                        likesCount: 14
-                    },
-                    {
-                        kweetId: 2,
-                        fullName: "Chad Whitley",
-                        username: "@Chad",
-                        content: "Gewoonterecht is recht dat gebaseerd is op gewoonten. Een belangrijk \n" +
-                            "kenmerk van gewoonterecht is dat het van generatie op generatie \n" +
-                            "mondeling wordt doorgegeven. Daarom wordt gewoonterecht ook \n" +
-                            "wel ongeschreven recht en costumier recht genoemd. ",
-                        dateTime: "12-05-2019 21:42",
-                        kweetLiked: true,
-                        likesCount: 1
-                    },
-                    {
-                        kweetId: 3,
-                        fullName: "Anthony Corker",
-                        username: "@AnthonyCorker",
-                        content: "Gewoonterecht is recht dat gebaseerd is op gewoonten.",
-                        dateTime: "01-01-2018 20:13",
-                        kweetLiked: false,
-                        likesCount: 39
-                    }
-
-
-                ]
+                return this.$store.getters.TIMELINE;
 
             }
+
+        },
+        mounted() {
+
+            this.$store.dispatch('SET_TIMELINE');
+
         }
     }
 </script>
 
 <style>
 
-    html, body{
+    html, body {
 
         margin: 0;
 
     }
 
-    #rows{
+    #homescreen {
+
+        width: auto;
+        text-align: center;
+
+    }
+
+    #rows {
 
         width: 96.67%;
-        height: 100vw;
+        height: auto;
         margin-left: 3.33%;
 
     }
 
-    #leftRow{
+    #leftRow {
 
         height: 100vw;
         width: 29.3%;
         float: left;
         position: fixed;
         z-index: 10;
-        margin-top: 8.4vw;
+        margin-top: 10vw;
 
 
     }
 
-    #rightRow{
+    #rightRow {
 
         height: auto;
         width: 94%;
@@ -128,17 +111,18 @@
 
     }
 
-    #rightBackground{
+    #rightBackground {
 
         width: 61vw;
         float: right;
         height: auto;
         padding-right: 3.3%;
         overflow-y: auto;
+        padding-top: 10vw;
 
     }
 
-    ul{
+    ul {
 
         list-style: none;
         margin: 0;
@@ -146,7 +130,7 @@
 
     }
 
-    #kweet{
+    #kweet {
 
         margin-bottom: 3vw;
         z-index: 15;
@@ -158,11 +142,11 @@
         background: #6faed8; /* WebKit/Blink Browsers */
         color: white;
     }
+
     ::-moz-selection {
         background: #6faed8; /* Gecko Browsers */
         color: white;
     }
-
 
 
 </style>

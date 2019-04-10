@@ -2,14 +2,16 @@
 
     <div id="accountPage" >
 
+        <menu-component></menu-component>
+
         <kwetter-logo></kwetter-logo>
         <user-description></user-description>
 
-        <h1>Tweets</h1>
+        <h1>Kweets</h1>
 
         <ul>
 
-            <ul v-for="kweet in kweetObjects" :key="kweetId">
+            <ul v-for="kweet in kweets" v-bind:key="kweet.id">
 
                 <kweet-component :kweet="kweet"></kweet-component>
 
@@ -25,50 +27,23 @@
     import KwetterLogo from "../KwetterLogo";
     import UserDescription from "../components/accountpage/UserDescription";
     import KweetComponent from "../components/kweet/kweetComponent";
+    import MenuComponent from "../menu/menuComponent";
     export default {
         name: "AccountPage",
-        components: {KweetComponent, UserDescription, KwetterLogo},
-        data() {
-            return {
+        components: {MenuComponent, KweetComponent, UserDescription, KwetterLogo},
+        computed:{
 
+            kweets(){
 
-                kweetObjects: [
-
-                    {
-                        kweetId: 1,
-                        fullName: "Joel Castillo Guerra",
-                        username: "@joel123",
-                        content: "This is the first kweet send with kwetter",
-                        dateTime: "20-04-2019 10:23",
-                        kweetLiked: false,
-                        likesCount: 14
-                    },
-                    {
-                        kweetId: 2,
-                        fullName: "Chad Whitley",
-                        username: "@Chad",
-                        content: "Gewoonterecht is recht dat gebaseerd is op gewoonten. Een belangrijk \n" +
-                            "kenmerk van gewoonterecht is dat het van generatie op generatie \n" +
-                            "mondeling wordt doorgegeven. Daarom wordt gewoonterecht ook \n" +
-                            "wel ongeschreven recht en costumier recht genoemd. ",
-                        dateTime: "12-05-2019 21:42",
-                        kweetLiked: true,
-                        likesCount: 1
-                    },
-                    {
-                        kweetId: 3,
-                        fullName: "Anthony Corker",
-                        username: "@AnthonyCorker",
-                        content: "Gewoonterecht is recht dat gebaseerd is op gewoonten.",
-                        dateTime: "01-01-2018 20:13",
-                        kweetLiked: false,
-                        likesCount: 39
-                    }
-
-
-                ]
+                return this.$store.getters.USER_KWEETS;
 
             }
+
+        },
+        mounted() {
+
+            this.$store.dispatch('SET_USER_KWEETS');
+
         }
     }
 </script>
@@ -83,10 +58,11 @@
     #accountPage{
 
         text-align: center;
-        width: 83%;
+        width: 93.34%;
         margin-left: auto;
         margin-right: auto;
         height: auto;
+        margin-top: 10vw;
         
     }
 
@@ -97,6 +73,9 @@
 
         font-size: 8vw;
         font-weight: lighter;
+
+        z-index: 0;
+        position: relative;
 
     }
 

@@ -1,16 +1,54 @@
 <template>
     <div id="postKweet">
 
-        <textarea maxlength="160" placeholder="What's on your mind?" id="kweetContent"></textarea>
+        <textarea v-model="kweetObject.content" maxlength="160" placeholder="What's on your mind?" id="kweetContent"></textarea>
 
-        <img id="kweetButton" src="../../assets/images/kweet-button.svg"/>
+        <img @click="postKweet" id="kweetButton" src="../../assets/images/kweet-button.svg"/>
 
     </div>
 </template>
 
 <script>
+
+    import Axios from 'axios'
     export default {
-        name: "PostKweet"
+        name: "PostKweet",
+        data: function(){
+
+          return {
+
+            kweetObject: {
+
+                content: '',
+                dateTime : this.getDate,
+                poster : {"id" : this.$store.getters.USER.id},
+                likedBy : []
+
+            }
+
+          }
+
+        },
+        methods: {
+
+            postKweet(){
+
+                this.kweetObject.dateTime = new Date();
+
+                Axios.post('http://127.0.0.1:8081/kweet/add',
+                    this.kweetObject , // the data to post
+                    { headers: {
+                            'Content-type': 'application/json'
+                        }
+                    }).then(value =>{
+
+                        this.kweetObject.content = ''
+
+                })
+
+            }
+
+        }
     }
 </script>
 
@@ -45,7 +83,6 @@
         font-family: HelveticaNeue-Thin,sans-serif;
         font-size: 1.2vw;
 
-        margin-left: 5%;
         margin-top: 1.5vw;
 
         color: #838383;
@@ -66,6 +103,18 @@
         margin-right: 6.9%;
         color: white;
         margin-top: 0.6vw;
+        transition-duration: 0.2s;
+
+    }
+
+    #kweetButton:hover{
+
+        cursor: pointer;
+        -webkit-transform: scale(1.05);
+        -moz-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        -o-transform: scale(1.05);
+        transform: scale(1.05);
 
     }
 

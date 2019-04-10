@@ -9,21 +9,19 @@
 
         <div id="userDescriptionRightRow">
 
-            <h1> {{ this.$store.getters.USER.username }} </h1>
-            <h2> {{username}} </h2>
+            <h1> {{ user.firstname + " "  + user.lastname}} </h1>
+            <h2> @{{user.username}} </h2>
 
-            <p id="bio">{{bio}}</p>
+            <p id="bio">{{user.bio}}</p>
 
             <img id="locationIcon" src="../../assets/images/location-icon.svg">
-            <h3 id="location">Nijmegen, the Netherlands</h3>
+            <h3 id="location">{{user.location}}</h3>
 
             <img id="websiteIcon" src="../../assets/images/website-icon.svg">
-            <h3 id="website">www.joel.com</h3>
+            <h3 id="website">{{user.websiteUrl}}</h3>
 
             <h4>FOLLOWERS <br> <h5>{{followers}}</h5></h4>
             <h4>FOLLOWING <br> <h5>{{following}}</h5></h4>
-
-
 
 
         </div>
@@ -34,20 +32,28 @@
 <script>
     export default {
         name: "UserDescription",
-        data: function () {
-            return {
+        mounted() {
 
-                fullName: "Joel Castillo Guerra",
-                username: "@joelcastillo2352",
-                bio: "Iedereen kan direct online inhoud publiceren, met inachtneming .",
-                followers: 124,
-                following: 162
+            this.$store.dispatch('SET_USER');
+
+        },
+        computed : {
+
+            followers(){
+
+                return this.user.followers.length;
+
+            },
+            following(){
+
+                return this.user.following.length;
+
+            },
+            user(){
+
+                return this.$store.getters.USER;
 
             }
-        },
-        created() {
-
-            this.$store.dispatch('SET_USER')
 
         }
     }
@@ -70,7 +76,7 @@
         src: url('../../assets/fonts/HelveticaNeue-Thin.otf');
     }
 
-    #userDescriptionBackground{
+    #userDescriptionBackground {
 
         width: 100%;
         height: auto;
@@ -85,7 +91,7 @@
         margin-bottom: 3vw;
     }
 
-    #userDescriptionLeftRow{
+    #userDescriptionLeftRow {
 
         position: relative;
         margin-left: 3vw;
@@ -97,7 +103,7 @@
 
     }
 
-    #userDescriptionRightRow{
+    #userDescriptionRightRow {
 
         position: relative;
         margin-left: 16vw;
@@ -109,7 +115,7 @@
 
     }
 
-    #profilePicture{
+    #profilePicture {
 
         height: 10vw;
         width: 10vw;
@@ -120,7 +126,7 @@
         position: relative;
     }
 
-    h1{
+    h1 {
 
         color: #707070;
 
@@ -133,7 +139,7 @@
 
     }
 
-    h2{
+    h2 {
 
         color: #b6b6b6;
         font-size: 1.8vw;
@@ -144,7 +150,7 @@
 
     }
 
-    #bio{
+    #bio {
 
         color: #494949;
 
@@ -160,7 +166,7 @@
 
     }
 
-    #locationIcon{
+    #locationIcon {
 
         height: 2vw;
         float: left;
@@ -169,37 +175,37 @@
 
     }
 
-    #websiteIcon{
+    #websiteIcon {
 
         height: 2vw;
         float: left;
 
     }
 
-    #location{
+    #location {
 
 
         margin-top: 2.2vw;
 
     }
 
-    #website{
+    #website {
 
         margin-top: 1.5vw;
 
     }
 
-    h3{
+    h3 {
 
         font-family: "HelveticaNeue-Thin", "Roboto Light", "Roboto", "Arial", sans-serif;
         color: #b6b6b6;
         margin-left: 3vw;
         letter-spacing: 0.1vw;
         font-size: 1.4vw;
-        
+
     }
 
-    h4{
+    h4 {
 
         color: #707070;
 
@@ -217,7 +223,7 @@
 
     }
 
-    h5{
+    h5 {
 
         color: #B6B6B6;
 

@@ -8,21 +8,21 @@ import AdminPanel from './views/AdminPanel'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-{
-  path: '/',
-  name: 'accountPage',
-  component: AccountPage
-},
-// {
-//   path: '/',
-//   name: 'homescreen',
-//   component: Homescreen
-// }
-// {
-//   path: '/',
-//   name: 'adminPanel',
-//   component: AdminPanel
-// }
-  ]
+    routes: [
+        {
+            path: '/',
+            name: 'homescreen',
+            component: Homescreen
+        },
+        {
+            path: '/account',
+            name: 'accountPage',
+            component: AccountPage
+        },
+        {
+            path: '/admin',
+            name: 'adminPanel',
+            component: AdminPanel
+        }
+    ]
 })
