@@ -80,15 +80,12 @@
 
         width: 100%;
         height: auto;
-        margin-left: auto;
-        margin-right: auto;
-
         background-color: white;
         filter: drop-shadow(40px 30px 50px #d7d7d7);
 
         padding-bottom: 3vw;
 
-        margin-bottom: 3vw;
+        margin: 7vw auto 3vw;
     }
 
     #userDescriptionLeftRow {

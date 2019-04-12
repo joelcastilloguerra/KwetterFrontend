@@ -3,9 +3,9 @@
 
         <form action="/search">
 
-            <input placeholder="Search..." type="text" id="searchBox">
+            <input v-model="searchString" placeholder="Search..." type="text" id="searchBox">
 
-            <img id="searchIcon" src="../../assets/images/search-icon.svg">
+            <img v-on:click="search()" id="searchIcon" src="../../assets/images/search-icon.svg">
 
         </form>
 
@@ -13,8 +13,37 @@
 </template>
 
 <script>
+    import Axios from 'axios';
     export default {
-        name: "SearchBox"
+        name: "SearchBox",
+        data: function(){
+
+            return{
+
+                searchString: ''
+
+            }
+
+        },
+        methods:{
+
+            search(){
+
+                Axios.get('http://127.0.0.1:8081/kweet/search/' + this.searchString,
+                    { headers: {
+                            'Content-type': 'application/json'
+                        }
+                    }).then(value =>{
+
+                    this.$store.commit('SET_TIMELINE', value.data);
+
+                    // console.log(value);
+
+                })
+
+            }
+
+        }
     }
 </script>
 
@@ -88,6 +117,14 @@
 
         position: absolute;
         right: 1.55vw;
+        transition-duration: 0.2s;
+
+    }
+
+    #searchIcon:hover{
+
+        cursor: pointer;
+        height: 3.3vw;
 
     }
 

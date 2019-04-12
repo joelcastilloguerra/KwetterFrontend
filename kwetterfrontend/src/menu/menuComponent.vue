@@ -63,9 +63,10 @@
 
     ul {
 
-        position: fixed;
-        left: 3.33%;
-        top: 5vw;
+        position: sticky;
+        float: left;
+        margin-left: 3.83%;
+        margin-top: 0.6vw;
 
     }
 

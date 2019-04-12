@@ -3,7 +3,7 @@
 
         <div id="profilePicture"></div>
 
-        <p>@joelcastilloguerra</p>
+        <p>{{'@' + this.$store.getters.USER.username}}</p>
         
         <img id="downArrow" src="../../assets/images/switch-account-arrow.svg" />
 

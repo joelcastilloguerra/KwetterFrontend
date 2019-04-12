@@ -1,9 +1,7 @@
 <template>
     <div id="homescreen">
 
-        <kwetter-logo></kwetter-logo>
-
-        <menu-component></menu-component>
+        <header-component></header-component>
 
         <div id="rows">
 
@@ -46,10 +44,11 @@
     import PostKweet from "../components/homepage/PostKweet";
     import Account from "../components/homepage/Account";
     import MenuComponent from "../menu/menuComponent";
+    import HeaderComponent from "../header/headerComponent";
 
     export default {
         name: "Homescreen",
-        components: {MenuComponent, Account, PostKweet, SearchBox, KwetterLogo, KweetComponent},
+        components: {HeaderComponent, MenuComponent, Account, PostKweet, SearchBox, KwetterLogo, KweetComponent},
         computed: {
 
             timeline() {
@@ -62,6 +61,7 @@
         mounted() {
 
             this.$store.dispatch('SET_TIMELINE');
+            this.$store.dispatch('SET_USER')
 
         }
     }
@@ -119,6 +119,7 @@
         padding-right: 3.3%;
         overflow-y: auto;
         padding-top: 10vw;
+        min-height: 39vw;
 
     }
 

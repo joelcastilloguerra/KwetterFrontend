@@ -22,7 +22,7 @@
 
             <p id="dateTime">{{ dateTime }}</p>
 
-            <div @click="kweetLiked = !kweetLiked">
+            <div @click="setKweetLiked()">
 
                 <img class="heart" v-if="kweetLiked" src="../../assets/images/likedHeart.svg" />
                 <img class="heart" v-if="!kweetLiked" src="../../assets/images/unlikedHeart.svg" />
@@ -51,7 +51,8 @@
             return {
 
                 kweetLiked: this.kweet.kweetLiked,
-                poster: []
+                poster: [],
+                extraLike: 0
 
             }
 
@@ -60,7 +61,7 @@
 
             likes(){
 
-                return this.kweet.likedBy.length;
+                return this.kweet.likedBy.length + this.extraLike;
 
             },
             dateTime(){
@@ -70,10 +71,55 @@
             }
 
         },
+        created(){
+
+            console.log(this.kweet);
+
+        },
+        methods:{
+
+          setKweetLiked(){
+
+              this.kweetLiked = !this.kweetLiked;
+
+              if(this.kweetLiked){
+
+                  Axios.post('http://127.0.0.1:8081/kweet/like/' + this.kweet.id + '/' + this.$store.getters.USER.id,
+                      { headers: {
+                              'Content-type': 'application/json'
+                          }
+                      }).then(value => {
+
+                      this.extraLike++;
+
+                  })
+
+
+              }
+              else{
+
+                  Axios.post('http://127.0.0.1:8081/kweet/unLike/' + this.kweet.id + '/' + this.$store.getters.USER.id,
+                      { headers: {
+                              'Content-type': 'application/json'
+                          }
+                      }).then(value =>{
+
+                      this.extraLike--;
+
+                  })
+
+              }
+
+          }
+
+        },
         mounted() {
 
-            let {data} = Axios.get('http://127.0.0.1:8081/user/get/' + this.kweet.poster)
+            Axios.get('http://127.0.0.1:8081/user/get/' + this.kweet.poster)
                 .then(value => this.poster = value.data);
+
+            Axios.get('http://127.0.0.1:8081/kweet/liked/' + this.$store.getters.USER.id + '/' + this.kweet.id)
+                .then(value => this.kweetLiked = value.data);
 
         }
 
@@ -228,7 +274,7 @@
 
         color: #C0C0C0;
 
-        margin: 0 -1.72vw 0 0;
+        margin: 0 -1.52vw 0 0;
     }
 
     .heart{

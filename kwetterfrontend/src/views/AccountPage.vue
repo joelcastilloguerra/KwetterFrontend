@@ -1,36 +1,36 @@
 <template>
 
-    <div id="accountPage" >
+    <div>
+        <header-component></header-component>
+        <div id="accountPage" >
 
-        <menu-component></menu-component>
 
-        <kwetter-logo></kwetter-logo>
-        <user-description></user-description>
+            <user-description></user-description>
 
-        <h1>Kweets</h1>
+            <h1>Kweets</h1>
 
-        <ul>
+            <ul>
 
-            <ul v-for="kweet in kweets" v-bind:key="kweet.id">
+                <ul v-for="kweet in kweets" v-bind:key="kweet.id">
 
-                <kweet-component :kweet="kweet"></kweet-component>
+                    <kweet-component :kweet="kweet"></kweet-component>
+
+                </ul>
 
             </ul>
 
-        </ul>
-
+        </div>
     </div>
     
 </template>
 
 <script>
-    import KwetterLogo from "../KwetterLogo";
     import UserDescription from "../components/accountpage/UserDescription";
     import KweetComponent from "../components/kweet/kweetComponent";
-    import MenuComponent from "../menu/menuComponent";
+    import HeaderComponent from "../header/headerComponent";
     export default {
         name: "AccountPage",
-        components: {MenuComponent, KweetComponent, UserDescription, KwetterLogo},
+        components: {HeaderComponent, KweetComponent, UserDescription},
         computed:{
 
             kweets(){
@@ -62,7 +62,6 @@
         margin-left: auto;
         margin-right: auto;
         height: auto;
-        margin-top: 10vw;
         
     }
 

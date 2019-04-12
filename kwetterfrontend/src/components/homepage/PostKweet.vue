@@ -33,18 +33,23 @@
 
             postKweet(){
 
-                this.kweetObject.dateTime = new Date();
+                if(this.kweetObject.content.length !== 0){
 
-                Axios.post('http://127.0.0.1:8081/kweet/add',
-                    this.kweetObject , // the data to post
-                    { headers: {
-                            'Content-type': 'application/json'
-                        }
-                    }).then(value =>{
+                    this.kweetObject.dateTime = new Date();
+
+                    Axios.post('http://127.0.0.1:8081/kweet/add',
+                        this.kweetObject , // the data to post
+                        { headers: {
+                                'Content-type': 'application/json'
+                            }
+                        }).then(value =>{
 
                         this.kweetObject.content = ''
+                        this.$store.dispatch('SET_TIMELINE');
 
-                })
+                    })
+
+                }
 
             }
 
