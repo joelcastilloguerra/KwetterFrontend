@@ -7,28 +7,22 @@
 </template>
 
 <script>
-    import KweetComponent from "./components/kweet/kweetComponent";
 
+    import Axios from 'axios'
     export default {
-        components: {KweetComponent},
-        data: function () {
+        components: {},
+        mounted() {
 
-            return {
+            if(localStorage.getItem('token') !== null){
 
-                kweetObject: {
-
-                    fullName: "Joel Castillo Guerra",
-                    username: "@joel123",
-                    content: "This is the first kweet send with kwetter",
-                    dateTime: "20-04-2019 10:23",
-                    kweetLiked: false,
-                    likesCount: 14
-
-                }
+                Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
 
             }
 
+
         }
+
+
     }
 
 </script>

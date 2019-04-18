@@ -71,11 +71,6 @@
             }
 
         },
-        created(){
-
-            console.log(this.kweet);
-
-        },
         methods:{
 
           setKweetLiked(){
@@ -86,8 +81,10 @@
 
                   Axios.post('http://127.0.0.1:8081/kweet/like/' + this.kweet.id + '/' + this.$store.getters.USER.id,
                       { headers: {
-                              'Content-type': 'application/json'
+                              'Content-type': 'application/json',
+                              'Authorization': 'Bearer ' + localStorage.getItem('token')
                           }
+
                       }).then(value => {
 
                       this.extraLike++;
@@ -100,7 +97,8 @@
 
                   Axios.post('http://127.0.0.1:8081/kweet/unLike/' + this.kweet.id + '/' + this.$store.getters.USER.id,
                       { headers: {
-                              'Content-type': 'application/json'
+                              'Content-type': 'application/json',
+                              'Authorization': 'Bearer '+ localStorage.getItem('token')
                           }
                       }).then(value =>{
 
@@ -115,10 +113,10 @@
         },
         mounted() {
 
-            Axios.get('http://127.0.0.1:8081/user/get/' + this.kweet.poster)
+            Axios.get('http://127.0.0.1:8081/user/get/' + this.kweet.poster, { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} })
                 .then(value => this.poster = value.data);
 
-            Axios.get('http://127.0.0.1:8081/kweet/liked/' + this.$store.getters.USER.id + '/' + this.kweet.id)
+            Axios.get('http://127.0.0.1:8081/kweet/liked/' + this.$store.getters.USER.id + '/' + this.kweet.id, { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} })
                 .then(value => this.kweetLiked = value.data);
 
         }

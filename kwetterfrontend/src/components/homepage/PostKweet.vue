@@ -37,10 +37,14 @@
 
                     this.kweetObject.dateTime = new Date();
 
+                    Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
+
                     Axios.post('http://127.0.0.1:8081/kweet/add',
                         this.kweetObject , // the data to post
                         { headers: {
-                                'Content-type': 'application/json'
+                                'Content-type': 'application/json',
+                                'Authorization': 'Bearer '+ localStorage.getItem('token')
+
                             }
                         }).then(value =>{
 

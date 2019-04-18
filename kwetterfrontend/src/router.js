@@ -4,14 +4,16 @@ import Router from 'vue-router'
 import AccountPage from './views/AccountPage'
 import Homescreen from './views/Homescreen'
 import AdminPanel from './views/AdminPanel'
+import LoginPage from './views/LoginPage'
 
-Vue.use(Router)
+Vue.use(Router);
 
-export default new Router({
+const router = new Router({
+    mode: 'history',
     routes: [
         {
-            path: '/',
-            name: 'homescreen',
+            path: '/home',
+            name: 'home',
             component: Homescreen
         },
         {
@@ -23,6 +25,44 @@ export default new Router({
             path: '/admin',
             name: 'adminPanel',
             component: AdminPanel
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: LoginPage
+        },
+        {
+            path: '*',
+            redirect: '/login'
         }
+
     ]
-})
+});
+
+router.beforeEach((to, from, next) => {
+
+    if (to.fullPath !== '/login') {
+
+        if (localStorage.getItem('token') === null) {
+
+            next('/login');
+
+        }
+
+    }
+
+    if (to.fullPath === '/login') {
+
+        if (localStorage.getItem('token') !== null) {
+
+            next('/home');
+
+        }
+
+    }
+
+    next();
+
+});
+
+export default router;

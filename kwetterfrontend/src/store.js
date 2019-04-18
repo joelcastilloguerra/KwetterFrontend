@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
+import router from 'vue-router'
 
 Vue.use(Vuex)
 
@@ -56,14 +57,20 @@ export default new Vuex.Store({
 
                 SET_USER: async (context, payload) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/user/getAll');
+                    let {data} = await Axios.get('http://127.0.0.1:8081/user/getAll', { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} });
                     context.commit('SET_USER', data)
 
                 },
                 SET_USER_KWEETS: async (context, payload) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getLatest/2');
+                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getLatest/2', { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} });
                     context.commit('SET_USER_KWEETS', data);
+
+                },
+                logout({ commit }) {
+
+                    localStorage.removeItem('accessToken');
+                    router.push('/login');
 
                 }
 
@@ -100,7 +107,7 @@ export default new Vuex.Store({
 
                 SET_TIMELINE: async (context, payload) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getTimeline/2');
+                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getTimeline/2', { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} });
                     context.commit('SET_TIMELINE', data);
 
                 }
