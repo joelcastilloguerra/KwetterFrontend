@@ -39,16 +39,15 @@
 
 <script>
     import KweetComponent from "../components/kweet/kweetComponent";
-    import KwetterLogo from "../KwetterLogo";
     import SearchBox from "../components/homepage/SearchBox";
     import PostKweet from "../components/homepage/PostKweet";
     import Account from "../components/homepage/Account";
-    import MenuComponent from "../menu/menuComponent";
     import HeaderComponent from "../header/headerComponent";
+    import Axios from 'axios'
 
     export default {
         name: "Homescreen",
-        components: {HeaderComponent, MenuComponent, Account, PostKweet, SearchBox, KwetterLogo, KweetComponent},
+        components: {HeaderComponent, Account, PostKweet, SearchBox, KweetComponent},
         computed: {
 
             timeline() {
@@ -61,7 +60,8 @@
         mounted() {
 
             this.$store.dispatch('SET_TIMELINE');
-            this.$store.dispatch('SET_USER')
+            this.$store.dispatch('SET_USER');
+            Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
 
         }
     }

@@ -39,6 +39,7 @@
 
 <script>
     import Axios from 'axios'
+    import Moment from 'moment'
     export default {
         name: "kweetComponent",
         props: {
@@ -66,7 +67,7 @@
             },
             dateTime(){
 
-                return this.kweet.dateTime
+                return Moment().format(this.kweet.dateTime);
 
             }
 
@@ -81,8 +82,7 @@
 
                   Axios.post('http://127.0.0.1:8081/kweet/like/' + this.kweet.id + '/' + this.$store.getters.USER.id,
                       { headers: {
-                              'Content-type': 'application/json',
-                              'Authorization': 'Bearer ' + localStorage.getItem('token')
+                              'Content-type': 'application/json'
                           }
 
                       }).then(value => {
@@ -97,8 +97,7 @@
 
                   Axios.post('http://127.0.0.1:8081/kweet/unLike/' + this.kweet.id + '/' + this.$store.getters.USER.id,
                       { headers: {
-                              'Content-type': 'application/json',
-                              'Authorization': 'Bearer '+ localStorage.getItem('token')
+                              'Content-type': 'application/json'
                           }
                       }).then(value =>{
 

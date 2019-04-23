@@ -3,11 +3,12 @@
     <div id="kweetsBackground">
 
         <search-kweets></search-kweets>
-        <delete-tweet-component></delete-tweet-component>
-        <delete-tweet-component></delete-tweet-component>
-        <delete-tweet-component></delete-tweet-component>
-        <delete-tweet-component></delete-tweet-component>
 
+        <ul>
+            <li v-for="kweet in searchResults" :key="kweet.id">
+                <delete-tweet-component :kweet="kweet"></delete-tweet-component>
+            </li>
+        </ul>
 
 
     </div>
@@ -17,15 +18,25 @@
 <script>
     import SearchKweets from "./SearchKweets";
     import DeleteTweetComponent from "./DeleteTweetComponent";
+
     export default {
         name: "KweetsComponent",
-        components: {DeleteTweetComponent, SearchKweets}
+        components: {DeleteTweetComponent, SearchKweets},
+        computed: {
+
+            searchResults() {
+
+                return this.$store.getters.SEARCH_KWEETS
+
+            }
+
+        }
     }
 </script>
 
 <style scoped>
 
-    #kweetsBackground{
+    #kweetsBackground {
 
         width: 100%;
         height: 100%;

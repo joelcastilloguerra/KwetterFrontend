@@ -4,10 +4,11 @@
 
         <search-profiles></search-profiles>
 
-        <edit-user-profile-component></edit-user-profile-component>
-        <edit-user-profile-component></edit-user-profile-component>
-        <edit-user-profile-component></edit-user-profile-component>
-        <edit-user-profile-component></edit-user-profile-component>
+        <ul>
+            <li v-for="user in searchResults" :key="user.id">
+                <edit-user-profile-component :user="user"></edit-user-profile-component>
+            </li>
+        </ul>
 
     </div>
 
@@ -18,7 +19,16 @@
     import EditUserProfileComponent from "./EditUserProfileComponent";
     export default {
         name: "ProfilesComponent",
-        components: {EditUserProfileComponent, SearchProfiles}
+        components: {EditUserProfileComponent, SearchProfiles},
+        computed: {
+
+            searchResults() {
+
+                return this.$store.getters.SEARCH_USERS
+
+            }
+
+        }
     }
 </script>
 

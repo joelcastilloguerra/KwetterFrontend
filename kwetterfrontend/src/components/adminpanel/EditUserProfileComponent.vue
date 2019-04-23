@@ -7,21 +7,77 @@
             <div id="profilePicture"></div>
 
             <div id="userInfo">
-                <h1>Joel Castillo Guerra <h2>@joelcastillog</h2></h1>
-                <h3>User</h3>
+                <h1>{{user.firstname + ' ' + user.lastname}} <h2>@{{user.username}}</h2></h1>
+                <h3 v-bind:class="{blue : this.isAdmin}" >{{role}}</h3>
             </div>
 
         </div>
 
-        <img id="editUserIcon" src="../../assets/images/edit-user-icon.svg">
+        <img @click="editUserRole" id="editUserIcon" src="../../assets/images/edit-user-icon.svg">
 
     </div>
 
 </template>
 
 <script>
+    import Axios from 'axios';
     export default {
-        name: "EditUserProfileComponent"
+        name: "EditUserProfileComponent",
+        props: {
+
+            user: {
+                type: Object,
+            }
+
+        },
+        computed:{
+
+            role(){
+
+                if(this.user.userRole === 'MODERATOR'){
+
+                    return 'Moderator'
+
+                }
+                else{
+
+                    return 'User'
+
+                }
+
+            },
+
+            isAdmin(){
+
+                return this.user.userRole === 'MODERATOR';
+
+
+            }
+
+
+
+        },
+        methods: {
+
+            editUserRole(){
+
+                Axios.post('http://127.0.0.1:8081/user/changeRole/' + this.user.id);
+
+                if(this.user.userRole === 'MODERATOR'){
+
+                    this.user.userRole = "NORMAL_USER"
+
+                }
+                else{
+
+                    this.user.userRole = "MODERATOR"
+
+                }
+
+
+            }
+
+        }
     }
 </script>
 
@@ -135,6 +191,12 @@
 
     }
 
+    .blue{
+
+        color: #6FAED8;
+
+    }
+
     #editUserIcon:hover{
 
         transform: scale(1.2);
@@ -142,7 +204,7 @@
 
     }
 
-    #editUserIconheart:active{
+    #editUserIcon:active{
 
         transform: scale(0.9);
 

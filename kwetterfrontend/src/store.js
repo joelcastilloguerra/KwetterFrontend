@@ -16,11 +16,12 @@ export default new Vuex.Store({
                     "id": 2,
                     "username": "username",
                     "firstname": "Name",
-                    "lastname": "",
-                    "email": "email",
-                    "bio": "Bio",
+                    "lastname": "Lastname",
+                    "email": "email@email.com",
+                    "bio": "Bio herer",
                     "location": "location",
-                    "websiteUrl": "website",
+                    "websiteUrl": "Website",
+                    "userRole": "NORMAL_USER",
                     "followers": [],
                     "following": []
                 },
@@ -57,20 +58,14 @@ export default new Vuex.Store({
 
                 SET_USER: async (context, payload) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/user/getAll', { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} });
+                    let {data} = await Axios.get('http://127.0.0.1:8081/user/get', {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
                     context.commit('SET_USER', data)
 
                 },
                 SET_USER_KWEETS: async (context, payload) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getLatest/2', { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} });
+                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getLatest', {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
                     context.commit('SET_USER_KWEETS', data);
-
-                },
-                logout({ commit }) {
-
-                    localStorage.removeItem('accessToken');
-                    router.push('/login');
 
                 }
 
@@ -80,7 +75,7 @@ export default new Vuex.Store({
 
         timeline: {
 
-            state : {
+            state: {
 
                 timeline: []
 
@@ -107,7 +102,7 @@ export default new Vuex.Store({
 
                 SET_TIMELINE: async (context, payload) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getTimeline/2', { headers: {'Authorization': 'Bearer '+ localStorage.getItem('token')} });
+                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getTimeline', {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
                     context.commit('SET_TIMELINE', data);
 
                 }
@@ -129,21 +124,6 @@ export default new Vuex.Store({
 
                     return state.activeItem;
 
-                },
-                CURRENT_ACTIVE_ITEM: state => {
-
-                    switch(this.$route.path){
-
-                        case '/':
-
-                            return 'home';
-
-                        case '/account':
-
-                            return 'account';
-
-                    }
-
                 }
 
             },
@@ -157,6 +137,45 @@ export default new Vuex.Store({
 
             }
 
+
+        },
+
+        admin: {
+
+            state: {
+
+                searchKweets : [],
+                searchUsers: []
+
+            },
+            getters : {
+
+                SEARCH_KWEETS: state => {
+
+                    return state.searchKweets;
+
+                },
+                SEARCH_USERS: state => {
+
+                    return state.searchUsers;
+
+                }
+
+            },
+            mutations : {
+
+                SET_SEARCH_KWEETS:(state, payload) => {
+
+                    state.searchKweets = payload
+
+                },
+                SET_SEARCH_USERS:(state, payload) => {
+
+                    state.searchUsers = payload
+
+                }
+
+            }
 
         }
 

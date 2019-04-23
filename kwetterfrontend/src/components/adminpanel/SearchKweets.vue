@@ -3,9 +3,9 @@
 
         <form action="/search">
 
-            <input placeholder="Search..." type="text" id="searchBox">
+            <input v-model="searchString" placeholder="Search..." type="text" id="searchBox">
 
-            <img id="searchIcon" src="../../assets/images/search-icon.svg">
+            <img @click="search" id="searchIcon" src="../../assets/images/search-icon.svg">
 
         </form>
 
@@ -13,8 +13,42 @@
 </template>
 
 <script>
+
+    import Axios from 'axios';
+
     export default {
-        name: "SearchKweets"
+        name: "SearchKweets",
+        data: function () {
+
+            return {
+
+                searchString: ''
+
+            }
+
+        },
+        methods: {
+
+            search() {
+
+                if (this.searchString !== '') {
+
+                    Axios.get('http://127.0.0.1:8081/kweet/search/' + this.searchString,
+                        {
+                            headers: {
+                                'Content-type': 'application/json'
+                            }
+                        }).then(value => {
+
+                        this.$store.commit('SET_SEARCH_KWEETS', value.data);
+
+                    })
+
+                }
+
+            }
+
+        }
     }
 </script>
 
@@ -25,7 +59,7 @@
         src: url('../../assets/fonts/HelveticaNeue-Thin.otf');
     }
 
-    #searchBoxBackground{
+    #searchBoxBackground {
 
         width: 86%;
         height: 5vw;
@@ -37,7 +71,7 @@
 
     }
 
-    #searchBox{
+    #searchBox {
 
         background-color: white;
         width: 78.3%;
@@ -49,7 +83,7 @@
         -moz-appearance: none;
         border: 2px solid #fff;
 
-        font-family: HelveticaNeue-Thin,sans-serif;
+        font-family: HelveticaNeue-Thin, sans-serif;
         font-size: 1.3vw;
 
         color: #8c8c8c;
@@ -69,13 +103,13 @@
         left: 1vw;
     }
 
-    ::placeholder{
+    ::placeholder {
 
         color: #d6d6d6;
 
     }
 
-    #searchIcon{
+    #searchIcon {
 
         height: 3vw;
         float: right;

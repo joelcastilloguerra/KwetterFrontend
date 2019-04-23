@@ -3,9 +3,9 @@
 
         <form action="/search">
 
-            <input placeholder="Search..." type="text" id="searchBox">
+            <input v-model="searchString" placeholder="Search..." type="text" id="searchBox">
 
-            <img id="searchIcon" src="../../assets/images/search-icon.svg">
+            <img @click="search" id="searchIcon" src="../../assets/images/search-icon.svg">
 
         </form>
 
@@ -13,8 +13,40 @@
 </template>
 
 <script>
+    import Axios from 'axios';
     export default {
-        name: "SearchProfiles"
+        name: "SearchProfiles",
+        data: function () {
+
+            return {
+
+                searchString: ''
+
+            }
+
+        },
+        methods: {
+
+            search() {
+
+                if (this.searchString !== '') {
+
+                    Axios.get('http://127.0.0.1:8081/user/search/' + this.searchString,
+                        {
+                            headers: {
+                                'Content-type': 'application/json'
+                            }
+                        }).then(value => {
+
+                        this.$store.commit('SET_SEARCH_USERS', value.data);
+
+                    })
+
+                }
+
+            }
+
+        }
     }
 </script>
 
@@ -89,6 +121,20 @@
 
         position: absolute;
         right: 1.55vw;
+
+        transition-duration: 0.2s;
+
+    }
+
+    #searchIcon:hover{
+
+        height: 3.1vw;
+
+    }
+
+    #searchIcon:active{
+
+        height: 2.9vw;
 
     }
 

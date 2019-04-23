@@ -5,23 +5,65 @@
 
             <div id="profilePicture"></div>
 
-                <h1>Joel Castillo Guerra <h2>@joelcastilloguerra</h2></h1>
+            <h1>{{this.poster.firstname + ' ' + this.poster.lastname + ''}} <h2>{{'@' + this.poster.username}}</h2></h1>
 
-            <p>{{this.$store.state.test}} <it class=""></it></p>
-            <h3>12-12-2012 12:12</h3>
+            <p>{{kweet.content}}</p>
+            <h3>{{kweet.dateTime}}</h3>
+
+
+            <img @click="removeKweet" id="deleteKweetIcon" src="../../assets/images/delete-kweet-icon.svg">
 
         </div>
 
-        <img id="deleteKweetIcon" src="../../assets/images/delete-kweet-icon.svg">
+
+
 
     </div>
 </template>
 
 <script>
-    import KweetComponent from "../kweet/kweetComponent";
+
+    import Axios from 'axios';
+
     export default {
         name: "DeleteTweetComponent",
-        components: {KweetComponent}
+        props: {
+
+            kweet: {
+                type: Object,
+            }
+
+        },
+        data : function () {
+            
+            return {
+
+                poster : []
+
+            }
+            
+        },
+        methods: {
+
+            removeKweet(){
+
+                Axios.delete('http://127.0.0.1:8081/kweet/remove/' + this.kweet.id, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+                    .then(this.$el.parentNode.removeChild(this.$el));
+
+            }
+
+        },
+        mounted() {
+
+            Axios.get('http://127.0.0.1:8081/user/get/' + this.kweet.poster, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+                .then(value => {
+
+
+                        this.poster = value.data;
+
+                });
+
+        }
     }
 </script>
 
@@ -31,6 +73,7 @@
         font-family: "HelveticaNeueCondensedBold";
         src: url('../../assets/fonts/HelveticaNeueCondensedBold.ttf');
     }
+
     @font-face {
         font-family: "HelveticaNeue-Thin";
         src: url('../../assets/fonts/HelveticaNeue-Thin.otf');
@@ -41,7 +84,7 @@
         src: url('../../assets/fonts/HelveticaNeue-ThinItalic.otf');
     }
 
-    #deleteKweetComponent{
+    #deleteKweetComponent {
 
         height: 7vw;
         width: 86%;
@@ -49,7 +92,7 @@
 
     }
 
-    #kweetBackground{
+    #kweetBackground {
 
         height: auto;
         width: 80%;
@@ -62,7 +105,7 @@
 
     }
 
-    #profilePicture{
+    #profilePicture {
 
         position: relative;
         display: inline-block;
@@ -84,31 +127,31 @@
 
     }
 
-    #deleteKweetIcon{
+    #deleteKweetIcon {
 
-        height: 3vw;
-        float: left;
-        margin-top: 6.5vw;
-        margin-left: 2.8vw;
-
+        height: 2.8vw;
+        float: right;
+        margin-top: -83px;
+        margin-right: -6.6vw;
+        -webkit-transition: 0.2s;
         transition: 0.2s;
 
     }
 
-    #deleteKweetIcon:hover{
+    #deleteKweetIcon:hover {
 
         transform: scale(1.2);
         cursor: pointer;
 
     }
 
-    #editUserIconheart:active{
+    #editUserIconheart:active {
 
         transform: scale(0.9);
 
     }
 
-    h1{
+    h1 {
 
         color: #707070;
 
@@ -123,7 +166,7 @@
 
     }
 
-    h2{
+    h2 {
         color: #B6B6B6;
         font-size: 1.3vw;
         margin-left: 0.4vw;
@@ -133,7 +176,7 @@
         display: inline-block;
     }
 
-    p{
+    p {
         color: #707070;
         font-size: 1.8vw;
 
@@ -148,7 +191,7 @@
 
     }
 
-    h3{
+    h3 {
 
         color: #B6B6B6;
         font-size: 1vw;

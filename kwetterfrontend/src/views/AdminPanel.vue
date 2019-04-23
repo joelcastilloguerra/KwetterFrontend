@@ -26,9 +26,15 @@
     import KwetterLogo from "../KwetterLogo";
     import ProfilesComponent from "../components/adminpanel/ProfilesComponent";
     import KweetsComponent from "../components/adminpanel/KweetsComponent";
+    import Axios from 'axios';
     export default {
         name: "AdminPanel",
-        components: {KweetsComponent, ProfilesComponent, KwetterLogo}
+        components: {KweetsComponent, ProfilesComponent, KwetterLogo},
+        mounted() {
+
+            Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
+
+        }
     }
 </script>
 

@@ -3,9 +3,7 @@
 
         <div id="profilePicture"></div>
 
-        <p>{{'@' + this.$store.getters.USER.username}}</p>
-        
-        <img id="downArrow" src="../../assets/images/switch-account-arrow.svg" />
+        <p>{{ '@' + this.$store.getters.USER.username}}</p>
 
     </div>
 </template>

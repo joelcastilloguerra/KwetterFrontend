@@ -57,6 +57,8 @@
                     //Store token in localstorage
                     localStorage.setItem('token', value.data.token);
 
+                    Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
+
                     this.$router.push({ name: 'home' })
 
                 })
@@ -160,6 +162,13 @@
 
         cursor: pointer;
         transform: scale(1.07);
+
+    }
+
+    #loginButton:active{
+
+        cursor: pointer;
+        transform: scale(0.93);
 
     }
 

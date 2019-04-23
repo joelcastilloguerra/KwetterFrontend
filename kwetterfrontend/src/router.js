@@ -60,6 +60,16 @@ router.beforeEach((to, from, next) => {
         }
 
     }
+    //
+    // if (to.fullPath === '/admin') {
+    //
+    //     if(this.$store.getters.USER.userRole !== 'MODERATOR'){
+    //
+    //         next('/home');
+    //
+    //     }
+    //
+    // }
 
     next();
 

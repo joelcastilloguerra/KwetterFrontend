@@ -21,6 +21,13 @@
 
         </router-link>
 
+        <li @click="logout">
+
+
+            LOG OUT
+
+
+        </li>
     </ul>
 
 </template>
@@ -47,6 +54,12 @@
             isActive(menuItem){
 
                 return this.$store.getters.ACTIVE_ITEM === menuItem;
+
+            },
+            logout(){
+
+                localStorage.removeItem('token');
+                this.$router.push({ name: 'login' })
 
             }
 
@@ -87,7 +100,14 @@
 
         letter-spacing: 0.2px;
 
-        transition-duration: 2s;
+        transition-duration: 0.2s;
+
+    }
+
+    li:hover{
+
+        transform: scale(1.1);
+        cursor: pointer;
 
     }
 
@@ -96,5 +116,4 @@
         color: #6faed8;
 
     }
-
 </style>

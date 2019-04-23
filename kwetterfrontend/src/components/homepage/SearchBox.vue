@@ -3,9 +3,9 @@
 
         <form action="/search">
 
-            <input v-model="searchString" placeholder="Search..." type="text" id="searchBox">
+            <input v-on:change="search" v-model="searchString" placeholder="Search..." type="text" id="searchBox">
 
-            <img v-on:click="search()" id="searchIcon" src="../../assets/images/search-icon.svg">
+            <img @click="search" id="searchIcon" src="../../assets/images/search-icon.svg">
 
         </form>
 
@@ -29,17 +29,27 @@
 
             search(){
 
-                Axios.get('http://127.0.0.1:8081/kweet/search/' + this.searchString,
-                    { headers: {
-                            'Content-type': 'application/json'
-                        }
-                    }).then(value =>{
+                if(this.searchString !== ''){
 
-                    this.$store.commit('SET_TIMELINE', value.data);
+                    Axios.get('http://127.0.0.1:8081/kweet/search/' + this.searchString,
+                        { headers: {
+                                'Content-type': 'application/json'
+                            }
+                        }).then(value =>{
 
-                    // console.log(value);
+                        this.$store.commit('SET_TIMELINE', value.data);
 
-                })
+                        // console.log(value);
+
+                    })
+
+                }
+                else{
+
+                    this.$store.dispatch('SET_TIMELINE');
+
+                }
+
 
             }
 
