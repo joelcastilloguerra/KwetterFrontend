@@ -18,7 +18,7 @@ export default new Vuex.Store({
                     "firstname": "Name",
                     "lastname": "Lastname",
                     "email": "email@email.com",
-                    "bio": "Bio herer",
+                    "bio": "Bio here",
                     "location": "location",
                     "websiteUrl": "Website",
                     "userRole": "NORMAL_USER",
