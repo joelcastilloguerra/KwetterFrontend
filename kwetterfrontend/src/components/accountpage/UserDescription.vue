@@ -9,7 +9,7 @@
 
         <div id="userDescriptionRightRow">
 
-            <h1> {{ user.firstname + " "  + user.lastname}} </h1>
+            <h1> {{ user.firstname + " " + user.lastname}} </h1>
             <h2> @{{user.username}} </h2>
 
             <p id="bio">{{user.bio}}</p>
@@ -23,6 +23,9 @@
             <h4>FOLLOWERS <br> <h5>{{followers}}</h5></h4>
             <h4>FOLLOWING <br> <h5>{{following}}</h5></h4>
 
+            <div @click="changeButton" v-if="showButton" v-show="hideButton" class="button" id="followButton">Follow</div>
+            <div @click="changeButton" v-if="!showButton" v-show="hideButton" class="button" id="unfollowButton">Unfollow</div>
+
 
         </div>
 
@@ -30,28 +33,87 @@
 </template>
 
 <script>
+
+    import Axios from 'axios';
     export default {
         name: "UserDescription",
-        mounted() {
+        data: function () {
 
-            this.$store.dispatch('SET_USER');
+            return {
+
+               showButton: true,
+                hideButton: true
+
+            }
 
         },
-        computed : {
+        mounted() {
 
-            followers(){
+            this.$store.dispatch('SET_CURRENT_VIEWING_PROFILE').then(value =>{
 
-                return this.user.followers.length;
+                if (this.$store.getters.CURRENT_USER.username === this.$store.getters.CURRENT_VIEWING_PROFILE.username) {
+    
+                    this.hideButton = false;
+
+                }
+
+                Axios.get('http://127.0.0.1:8081/user/isFollowing/' + this.$store.getters.CURRENT_VIEWING_PROFILE.id, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}})
+                    .then(value => {
+
+                        this.showButton = !value.data;
+
+                    });
+
+            });
+
+        },
+        computed: {
+
+            followers() {
+
+                if (undefined !== this.user.followers && this.user.followers.length) {
+
+                    return this.user.followers.length;
+
+                }
+
+                return 0;
+
 
             },
-            following(){
+            following() {
 
-                return this.user.following.length;
+                if (undefined !== this.user.following && this.user.following.length) {
+
+                    return this.user.following.length;
+
+                }
+                return 0;
 
             },
-            user(){
+            user() {
 
-                return this.$store.getters.USER;
+                return this.$store.getters.CURRENT_VIEWING_PROFILE;
+
+            }
+        },
+        methods : {
+
+            changeButton(){
+
+                Axios.post('http://127.0.0.1:8081/user/addOrRemoveFollower/' + this.$store.getters.CURRENT_VIEWING_PROFILE.id,
+                    {
+                        headers: {
+                            'Content-type': 'application/json'
+                        }
+
+                    }).then(value => {
+
+                    this.showButton = !this.showButton;
+
+                })
+
+
 
             }
 
@@ -105,7 +167,7 @@
         position: relative;
         margin-left: 16vw;
         top: 4vw;
-        height: 30vw;
+        height: 28vw;
         width: 75%;
         text-align: left;
         /*background-color: black;*/
@@ -236,6 +298,51 @@
 
         margin-bottom: 10vw;
 
+
+    }
+
+    .button {
+
+        height: 3vw;
+        width: 8vw;
+        margin-top: 3.8vw;
+        margin-left: 65.6vw;
+        font-family: HelveticaNeueCondensedBold, sans-serif;
+        text-align: center;
+        line-height: 3vw;
+        font-size: 1.6vw;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        transition-duration: 0.2s;
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+
+    #followButton{
+
+        background-color: #6faed8;
+        color: white;
+
+    }
+
+    #unfollowButton{
+
+        background-color: white;
+        color: #6faed8;
+        border: 2px solid #6faed8;
+        line-height: 2.7vw;
+
+    }
+
+    .button:hover {
+
+        cursor: pointer;
 
     }
 

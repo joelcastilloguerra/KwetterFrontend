@@ -1,8 +1,10 @@
 <template>
     <div>
 
-        <h1 @click="sendMessage">CLICK HERE</h1>
+
         <input v-model="inputMessage">
+        <br>
+        <input type="button" @click="sendMessage" value="Send message" />
 
     </div>
 </template>
@@ -19,7 +21,7 @@
 
             return {
 
-                inputMessage: "Message here"
+                inputMessage: "Hello!"
 
             }
 

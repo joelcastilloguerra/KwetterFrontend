@@ -8,11 +8,15 @@
             <input v-model="userObject.username" placeholder="Username" type="text" id="username">
             <input v-model="userObject.password" placeholder="Password" type="password" id="password">
 
-            <div id="loginButton" @click="login">
+
+            <vue-recaptcha @verify="onVerify" sitekey="6LcrMqgUAAAAABJFQElQr62weSJmuzAGEJs_w9nx">
+            </vue-recaptcha>
+                <div id="loginButton" @click="login">
 
                 LOGIN
 
             </div>
+
 
 
         </div>
@@ -23,10 +27,11 @@
 <script>
     import KwetterLogo from "../KwetterLogo";
     import Axios from "axios"
+    import VueRecaptcha from 'vue-recaptcha';
 
     export default {
         name: "LoginPage",
-        components: {KwetterLogo},
+        components: {KwetterLogo, VueRecaptcha },
         data: function () {
 
             return {
@@ -37,7 +42,8 @@
 
                     password: ''
 
-                }
+                },
+                verified: true
 
             }
 
@@ -46,26 +52,42 @@
 
             login() {
 
-                Axios.post('http://127.0.0.1:8081/user/signin',
-                    this.userObject,
-                    {
-                        headers: {
-                            'Content-type': 'application/json'
-                        }
-                    }).then(value => {
+                if(this.verified){
 
-                    //Store token in localstorage
-                    localStorage.setItem('token', value.data.token);
+                    Axios.post('http://127.0.0.1:8081/user/signin',
+                        this.userObject,
+                        {
+                            headers: {
+                                'Content-type': 'application/json'
+                            }
+                        }).then(value => {
 
-                    Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
+                        //Store token in localstorage
+                        localStorage.setItem('token', value.data.token);
 
-                    this.$router.push({ name: 'home' })
+                        Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
 
-                })
+                        this.$router.push({ name: 'home' })
+
+                    })
+
+                }
+
+
+
+            },
+            onVerify(){
+
+                this.verified = true;
 
             }
 
-        }
+        },
+        mounted() {
+            let recaptchaScript = document.createElement('script');
+            recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit');
+            document.head.appendChild(recaptchaScript)
+        },
     }
 </script>
 
@@ -79,6 +101,12 @@
     @font-face {
         font-family: "HelveticaNeueCondensedBold";
         src: url('../assets/fonts/HelveticaNeueCondensedBold.ttf');
+    }
+
+    #kwetterRecaptcha{
+
+        margin-top: 10vw;
+
     }
 
     #loginFormBackground {
@@ -97,6 +125,8 @@
         position: absolute;
 
         text-align: center;
+
+        float: right;
 
     }
 
@@ -138,6 +168,10 @@
         margin-top: 2vw;
         margin-bottom: 1vw;
 
+    }
+
+    .sppb-ajax-contact-content .g-recaptcha{
+        clear: both;
     }
 
     #loginButton {

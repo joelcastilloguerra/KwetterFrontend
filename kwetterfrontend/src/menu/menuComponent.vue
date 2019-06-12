@@ -50,6 +50,14 @@
 
                this.$store.commit("SET_ACTIVE_ITEM", menuItem);
 
+               if(menuItem === 'account'){
+
+                   this.$store.commit('SET_CURRENT_VIEWING_PROFILE', this.$store.getters.CURRENT_USER.id);
+
+                   console.log(this.$store.getters.CURRENT_VIEWING_PROFILE);
+
+               }
+
             },
             isActive(menuItem){
 

@@ -57,10 +57,9 @@
             }
 
         },
-        mounted() {
+        created() {
 
             this.$store.dispatch('SET_TIMELINE');
-            this.$store.dispatch('SET_USER');
             Axios.defaults.headers['Authorization'] = "Bearer " + localStorage.getItem('token');
 
         }

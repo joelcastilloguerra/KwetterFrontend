@@ -42,6 +42,7 @@
         },
         mounted() {
 
+            this.$store.dispatch('SET_CURRENT_VIEWING_PROFILE');
             this.$store.dispatch('SET_USER_KWEETS');
 
         }

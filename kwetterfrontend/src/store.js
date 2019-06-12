@@ -11,21 +11,9 @@ export default new Vuex.Store({
         user: {
 
             state: {
-
-                user: {
-                    "id": 2,
-                    "username": "username",
-                    "firstname": "Name",
-                    "lastname": "Lastname",
-                    "email": "email@email.com",
-                    "bio": "Bio here",
-                    "location": "location",
-                    "websiteUrl": "Website",
-                    "userRole": "NORMAL_USER",
-                    "followers": [],
-                    "following": []
-                },
-                userKweets: {}
+                currentUser: {},
+                userKweets: {},
+                currentViewingProfile: Number
             },
             getters: {
 
@@ -37,6 +25,16 @@ export default new Vuex.Store({
                 USER_KWEETS: state => {
 
                     return state.userKweets;
+
+                },
+                CURRENT_VIEWING_PROFILE: state => {
+
+                    return state.currentViewingProfile;
+
+                },
+                CURRENT_USER: state => {
+
+                    return state.currentUser;
 
                 }
             },
@@ -51,23 +49,50 @@ export default new Vuex.Store({
 
                     state.userKweets = payload;
 
+                },
+                SET_CURRENT_VIEWING_PROFILE: (state, payload) => {
+
+                    state.currentViewingProfile = payload;
+
+                },
+                SET_CURRENT_USER: (state, payload) => {
+
+                    state.currentUser = payload;
+
                 }
 
             },
             actions: {
 
-                SET_USER: async (context, payload) => {
+                SET_CURRENT_VIEWING_PROFILE: async (context) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/user/get', {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
-                    context.commit('SET_USER', data)
+                    let profileId;
+
+                    if(context.getters.CURRENT_VIEWING_PROFILE.id){
+
+                        profileId = context.getters.CURRENT_VIEWING_PROFILE.id;
+                    } else {
+
+                        profileId = context.getters.CURRENT_VIEWING_PROFILE
+
+                    }
+
+                    let {data} = await Axios.get('http://127.0.0.1:8081/user/get/' + profileId, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
+                    context.commit('SET_CURRENT_VIEWING_PROFILE', data)
 
                 },
-                SET_USER_KWEETS: async (context, payload) => {
+                SET_USER_KWEETS: async (context) => {
 
-                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getLatest', {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
+                    let {data} = await Axios.get('http://127.0.0.1:8081/kweet/getLatest/' + context.getters.CURRENT_VIEWING_PROFILE, {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
                     context.commit('SET_USER_KWEETS', data);
 
-                }
+                },
+                SET_CURRENT_USER: async (context) => {
+
+                    let {data} = await Axios.get('http://127.0.0.1:8081/user/setCurrentUser', {headers: {'Authorization': 'Bearer ' + localStorage.getItem('token')}});
+                    context.commit('SET_CURRENT_USER', data);
+
+                },
 
             }
 

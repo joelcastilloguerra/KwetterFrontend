@@ -3,14 +3,19 @@
 
         <div id="profilePicture"></div>
 
-        <p>{{ '@' + this.$store.getters.USER.username}}</p>
+        <p>{{ '@' + this.$store.getters.CURRENT_USER.username}}</p>
 
     </div>
 </template>
 
 <script>
     export default {
-        name: "Account"
+        name: "Account",
+        mounted(){
+
+            this.$store.dispatch("SET_CURRENT_USER");
+
+        }
     }
 </script>
 

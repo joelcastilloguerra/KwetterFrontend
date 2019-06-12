@@ -21,7 +21,7 @@
 
                 content: '',
                 dateTime : this.getDate,
-                poster : {"id" : this.$store.getters.USER.id},
+                poster : {"id" : this.$store.getters.CURRENT_USER.id},
                 likedBy : []
 
             }
