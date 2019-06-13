@@ -52,7 +52,7 @@
             this.$store.dispatch('SET_CURRENT_VIEWING_PROFILE').then(value =>{
 
                 if (this.$store.getters.CURRENT_USER.username === this.$store.getters.CURRENT_VIEWING_PROFILE.username) {
-    
+
                     this.hideButton = false;
 
                 }
