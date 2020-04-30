@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@types/stompjs": "^2.3.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "sockjs-client": "^1.3.0",
     "stompjs": "^2.3.3",
